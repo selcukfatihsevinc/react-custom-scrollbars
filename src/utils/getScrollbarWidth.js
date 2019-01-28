@@ -4,7 +4,7 @@ let scrollbarWidth = false;
 export default function getScrollbarWidth() {
     if (scrollbarWidth !== false) return scrollbarWidth;
     /* istanbul ignore else */
-    if (typeof document !== 'undefined') {
+    if (typeof document !== 'undefined' && global.isNode !== true) {
         const div = document.createElement('div');
         css(div, {
             width: 100,
@@ -18,7 +18,7 @@ export default function getScrollbarWidth() {
         scrollbarWidth = (div.offsetWidth - div.clientWidth);
         document.body.removeChild(div);
     } else {
-        scrollbarWidth = 0;
+        scrollbarWidth = 10;
     }
     return scrollbarWidth || 0;
 }
